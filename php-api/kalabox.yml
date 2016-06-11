@@ -1,4 +1,4 @@
-name: viperks
+name: api.viperks
 type: custom
 version: 0.0.1
 pluginconfig:
@@ -6,6 +6,6 @@ pluginconfig:
   sharing:
     share: 'data:/code'
   services:
-    api:
+    web:
       - port: 80/tcp
         default: true
