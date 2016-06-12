@@ -34,10 +34,6 @@ before-script() {
   npm install -g grunt-cli
   npm install -g npm
 
-  # Install the test deps
-  cd ${TRAVIS_BUILD_DIR}
-  npm install
-
   # Install kalabox
   sudo apt-get -y update
   sudo apt-get -y install iptables cgroup-bin bridge-utils curl

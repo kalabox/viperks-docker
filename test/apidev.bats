@@ -14,7 +14,7 @@ load env
 setup() {
 
   # Config
-  VIPERKS_API_ROOT="${TRAVIS_BUILD_DIR}/php-api"
+  VIPERKS_API_ROOT="${TRAVIS_BUILD_DIR}/api"
   VIPERKS_API_DOCKERFILES="${VIPERKS_API_ROOT}/dockerfiles"
 
 }
@@ -28,18 +28,18 @@ setup() {
 }
 
 #
-# Check that we can build the api image without an error.
-#
-@test "Check that we can build the api image without an error." {
-  run kbox-retry-build viperks/api latest $VIPERKS_API_DOCKERFILES/api
-  [ "$status" -eq 0 ]
-}
-
-#
 # Check that we can build the nginx image without an error.
 #
 @test "Check that we can build the web image without an error." {
   run kbox-retry-build viperks/web api-latest $VIPERKS_API_DOCKERFILES/web
+  [ "$status" -eq 0 ]
+}
+
+#
+# Check that we can build the api image without an error.
+#
+@test "Check that we can build the api image without an error." {
+  run kbox-retry-build viperks/api latest $VIPERKS_API_DOCKERFILES/api
   [ "$status" -eq 0 ]
 }
 

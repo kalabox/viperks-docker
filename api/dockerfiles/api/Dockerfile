@@ -17,10 +17,8 @@ RUN apt-get update && apt-get install ssh libcurl4-openssl-dev -y \
   && apt-get -y clean \
   && apt-get -y autoclean \
   && apt-get -y autoremove \
-  && rm -rf /var/lib/apt/* && rm -rf && rm -rf /var/lib/cache/* && rm -rf /var/lib/log/* && rm -rf /tmp/*
+  && rm -rf /var/lib/apt/* || true \
+  && rm -rf && rm -rf /var/lib/cache/* && rm -rf /var/lib/log/* && rm -rf /tmp/*
 
 COPY php-fpm.conf /usr/local/etc/
 COPY php.ini /usr/local/etc/php/
-
-#node, python, cron
-#DEVMODE: phpunit, xdebug

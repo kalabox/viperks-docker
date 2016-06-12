@@ -14,7 +14,7 @@ load env
 setup() {
 
   # Config
-  VIPERKS_API_ROOT="${TRAVIS_BUILD_DIR}/php-api"
+  VIPERKS_API_ROOT="${TRAVIS_BUILD_DIR}/api"
   VIPERKS_API_DOCKERFILES="${VIPERKS_API_ROOT}/dockerfiles"
 
   # Rename the kalabox compose override file so we don't load any dev
