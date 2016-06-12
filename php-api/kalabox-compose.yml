@@ -16,12 +16,12 @@ api:
 
   # Comment this and uncomment 'build' below if you want to edit your
   # local dockerfile and build from there. This is useful for development
-  # image: viperks/php-api:stable
+  image: viperks/api:stable
 
   # Uncomment this and comment 'image' above if you want to edit your
   # local dockerfile and build from there. This is useful for development
   #
-  build: ./dockerfiles/api
+  # build: ./dockerfiles/api
   volumes_from:
     - data
   working_dir: /code
@@ -30,12 +30,12 @@ web:
 
   # Comment this and uncomment 'build' below if you want to edit your
   # local dockerfile and build from there. This is useful for development
-  # image: nginx:alpine-stable
+  image: viperks/web:api-stable
 
   # Uncomment this and comment 'image' above if you want to edit your
   # local dockerfile and build from there. This is useful for development
   #
-  build: ./dockerfiles/nginx
+  #build: ./dockerfiles/web
   links:
     - api:api
   ports:

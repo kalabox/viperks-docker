@@ -4,6 +4,14 @@
 #
 
 api:
+  # Comment this and uncomment 'build' below if you want to edit your
+  # local dockerfile and build from there. This is useful for development
+  image: viperks/api:latest
+
+  # Uncomment this and comment 'image' above if you want to edit your
+  # local dockerfile and build from there. This is useful for development
+  #
+  #build: ./dockerfiles/api
   volumes:
     - $KALABOX_APP_ROOT_BIND:/src
   entrypoint: /src/local/scripts/php-fpm.sh
@@ -13,6 +21,14 @@ api:
     KALABOX_UID: $KALABOX_ENGINE_ID
     TERM: xterm
 web:
+  # Comment this and uncomment 'build' below if you want to edit your
+  # local dockerfile and build from there. This is useful for development
+  image: viperks/web:api-latest
+
+  # Uncomment this and comment 'image' above if you want to edit your
+  # local dockerfile and build from there. This is useful for development
+  #
+  #build: ./dockerfiles/web
   volumes:
     - $KALABOX_APP_ROOT_BIND:/src
   entrypoint: /src/local/scripts/nginx.sh
