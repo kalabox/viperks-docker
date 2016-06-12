@@ -13,5 +13,8 @@ usermod -G staff www-data || groupmod -g "$KALABOX_GID" www-data || true
 # Make sure we have correct ownership
 chown -Rf www-data:www-data /code
 
+# Enable extensions we need for dev
+docker-php-ext-enable xdebug
+
 # Run fpm with command options
 php-fpm "$@"

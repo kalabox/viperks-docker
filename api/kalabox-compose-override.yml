@@ -6,16 +6,16 @@
 api:
   # Comment this and uncomment 'build' below if you want to edit your
   # local dockerfile and build from there. This is useful for development
-  image: viperks/api:latest
+  # image: viperks/api:latest
 
   # Uncomment this and comment 'image' above if you want to edit your
   # local dockerfile and build from there. This is useful for development
   #
-  #build: ./dockerfiles/api
+  build: ./dockerfiles/api
   volumes:
     - $KALABOX_APP_ROOT_BIND:/src
   entrypoint: /src/local/scripts/php-fpm.sh
-  command: -d xdebug.remote_host=$KALABOX_ENGINE_REMOTE_IP
+  command: -d xdebug.remote_host=$KALABOX_ENGINE_REMOTE_IP -d xdebug.max_nesting_level=256 -d xdebug.show_exception_trace=0 -d xdebug.collect_params=0 -d xdebug.remote_enable=1
   environment:
     KALABOX_GID: $KALABOX_ENGINE_GID
     KALABOX_UID: $KALABOX_ENGINE_ID
@@ -23,12 +23,12 @@ api:
 web:
   # Comment this and uncomment 'build' below if you want to edit your
   # local dockerfile and build from there. This is useful for development
-  image: viperks/web:api-latest
+  # image: viperks/web:api-latest
 
   # Uncomment this and comment 'image' above if you want to edit your
   # local dockerfile and build from there. This is useful for development
   #
-  #build: ./dockerfiles/web
+  build: ./dockerfiles/web
   volumes:
     - $KALABOX_APP_ROOT_BIND:/src
   entrypoint: /src/local/scripts/nginx.sh
