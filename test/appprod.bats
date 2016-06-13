@@ -90,6 +90,7 @@ setup() {
 # Check that the db container exists and is in the correct state.
 #
 @test "Check that the db container exists and is in the correct state." {
+  skip
   $DOCKER inspect appviperks_db_1 | grep "\"Status\": \"running\""
 }
 
@@ -97,6 +98,7 @@ setup() {
 # Check that the app container exists and is in the correct state.
 #
 @test "Check that the app container exists and is in the correct state." {
+  skip
   $DOCKER inspect appviperks_app_1 | grep "\"Status\": \"running\""
 }
 
@@ -104,6 +106,7 @@ setup() {
 # Check that the web container exists and is in the correct state.
 #
 @test "Check that the web container exists and is in the correct state." {
+  skip
   $DOCKER inspect appviperks_web_1 | grep "\"Status\": \"running\""
 }
 
