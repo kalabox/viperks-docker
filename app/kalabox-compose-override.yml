@@ -3,8 +3,8 @@
 # and Kalabox
 #
 
-api:
-  build: ./dockerfiles/api
+app:
+  build: ./dockerfiles/app
   volumes:
     - $KALABOX_APP_ROOT_BIND:/src
   entrypoint: /src/local/scripts/php-fpm.sh
@@ -23,3 +23,12 @@ web:
     KALABOX_GID: $KALABOX_ENGINE_GID
     KALABOX_UID: $KALABOX_ENGINE_ID
     TERM: xterm
+db:
+  build: ./dockerfiles/db
+  environment:
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
+    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    MYSQL_DATABASE: drupal
+  ports:
+    - "3306"

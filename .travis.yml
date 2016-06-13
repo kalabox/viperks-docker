@@ -32,3 +32,5 @@ env:
   matrix:
   - TEST_GROUP=apidev
   - TEST_GROUP=apiprod
+  - TEST_GROUP=appdev
+  - TEST_GROUP=appprod
