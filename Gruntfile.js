@@ -23,6 +23,14 @@ module.exports = function(grunt) {
       apiprod: {
         options: testOpts,
         command: testCommand + ' ./test/apiprod.bats'
+      },
+      appdev: {
+        options: testOpts,
+        command: testCommand + ' ./test/appdev.bats'
+      },
+      appprod: {
+        options: testOpts,
+        command: testCommand + ' ./test/appprod.bats'
       }
     }
 
@@ -57,10 +65,18 @@ module.exports = function(grunt) {
   grunt.registerTask('test:apiprod', [
     'shell:apiprod'
   ]);
+  grunt.registerTask('test:appdev', [
+    'shell:appdev'
+  ]);
+  grunt.registerTask('test:appprod', [
+    'shell:appprod'
+  ]);
   grunt.registerTask('test', [
     'shell:install',
     'shell:apidev',
-    'shell:apiprod'
+    'shell:apiprod',
+    'shell:appdev',
+    'shell:appprod'
   ]);
 
 };

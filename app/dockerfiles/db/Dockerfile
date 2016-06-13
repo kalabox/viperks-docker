@@ -1,6 +1,6 @@
-# Standard nginx container
+# Standard mysql container
 
-FROM nginx:1.8.1
+FROM mysql
 
 #
 # Add your custom stuff here, you will want to make sure
