@@ -60,6 +60,7 @@ setup() {
 #
 @test "Check that the API image has the correct PHP extensions." {
   $DOCKER run viperks/api:$VIPERKS_IMAGE_TAG php-fpm -m | grep "curl" && \
+  $DOCKER run viperks/api:$VIPERKS_IMAGE_TAG php-fpm -m | grep "imagick" && \
   $DOCKER run viperks/api:$VIPERKS_IMAGE_TAG php-fpm -m | grep "pdo_mysql" && \
   $DOCKER run viperks/api:$VIPERKS_IMAGE_TAG php-fpm -m | grep "Zend OPcache"
 }
@@ -115,6 +116,13 @@ setup() {
 #
 @test "Check that the DEV API container has the xdebug extension enabled." {
   $DOCKER exec apiviperks_api_1 php-fpm -m | grep xdebug
+}
+
+#
+# Check that the web image has a link to the api.
+#
+@test "Check that the web image has a link to the api." {
+  $DOCKER exec apiviperks_web_1 cat /etc/hosts | grep "api"
 }
 
 #
