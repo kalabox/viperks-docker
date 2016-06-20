@@ -7,40 +7,32 @@ for VIPerks API and APP services.
 Dependencies
 ------------
 
-VIPerks Docker works easiest with Kalabox.
+VIPerks Docker works easiest with Kalabox, Docker Compose and NodeJS
 
   1. [Kalabox](https://github.com/kalabox/kalabox)
+  2. [Docker Compose](https://docs.docker.com/compose/)
+  3. [NodeJS](https://nodejs.org)
 
 Installation
 ------------
 
-```
+```bash
 # Get the VIPerks repo
 git clone https://github.com/kalabox/viperks-docker.git
+cd viperks-docker
+
+# Only needed for running tests
+npm install
 ```
 
-Current Limitations
--------------------
+Development
+-----------
 
-1. You will need to
-comment out the `image` keys in `kalabox-compose.yml`s and uncomment the `build` keys.
-
-Starting Services
------------------
+### Starting Services
 
 ```bash
-#
-# Each code stanza below assumes you start from the repo root
-#
-
 # Start dev version of API service
 cd api
-kbox start
-# Visit API at api.viperks.kbox
-
-# Start production version of API service
-cd api
-mv kalabox-compose-override.yml kalabox-compose-override.dev.yml
 kbox start
 # Visit API at api.viperks.kbox
 
@@ -49,21 +41,16 @@ cd app
 kbox start
 # Visit API at app.viperks.kbox
 
-# Start production version of API service
-cd app
-mv kalabox-compose-override.yml kalabox-compose-override.dev.yml
-kbox start
-# Visit APP at app.viperks.kbox
 ```
 
-Development
------------
+### Adding application code
 
-Here is an example using the API project.
+@todo: Eventually this will be baked into the image itself
+
+Here is an example with the api service.
 
 ```bash
 # Start the dev api containers
-cd /path/to/repo
 cd api
 kbox start
 
@@ -79,9 +66,6 @@ We use Kalabox for easy testing. You will additionally need [node](http://nodejs
 npm installed for this.
 
 ```bash
-# Install the testing dependencies
-npm install
-
 # Run all the tests
 grunt test
 
@@ -97,3 +81,22 @@ run test:appdev
 # Run dev app tests
 run test:appprod
 ```
+
+Production
+----------
+
+It's easiest to use Docker Compose to run your production stack. Note that
+Docker Compose does not set up easy DNS like Kalabox does. Please also note
+that you will need to make sure you have a docker engine set up and running
+correctly before you do that.
+
+```bash
+# Run API
+cd api
+docker-compose -f kalabox-compose.yml up -d
+
+# Run App
+cd app
+docker-compose -f kalabox-compose.yml up -d
+```
+
