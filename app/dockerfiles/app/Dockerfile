@@ -9,6 +9,9 @@ VOLUME /var/www/html
 RUN apt-get update && apt-get install -y \
     ssh \
   && pecl install xdebug \
+  && pecl install redis \
+  && docker-php-ext-enable \
+    redis \
   && curl -fsSL -o /usr/local/bin/phpunit "https://phar.phpunit.de/phpunit.phar" \
   && chmod +x /usr/local/bin/phpunit \
   && apt-get -y clean \
