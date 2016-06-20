@@ -78,14 +78,6 @@ setup() {
 }
 
 #
-# Check that the APP image has the correct links to redis and mysql.
-#
-@test "Check that the APP image has the correct links to redis and mysql." {
-  $DOCKER run viperks/app:$VIPERKS_IMAGE_TAG cat /etc/hosts | grep "database" && \
-  $DOCKER run viperks/app:$VIPERKS_IMAGE_TAG cat /etc/hosts | grep "redis"
-}
-
-#
 # Check that the APP image has phpunit installed.
 #
 @test "Check that the APP image has phpunit installed." {
@@ -106,7 +98,6 @@ setup() {
 # Check that the db container exists and is in the correct state.
 #
 @test "Check that the db container exists and is in the correct state." {
-  skip
   $DOCKER inspect appviperks_db_1 | grep "\"Status\": \"running\""
 }
 
@@ -121,7 +112,6 @@ setup() {
 # Check that the app container exists and is in the correct state.
 #
 @test "Check that the app container exists and is in the correct state." {
-  skip
   $DOCKER inspect appviperks_app_1 | grep "\"Status\": \"running\""
 }
 
@@ -129,7 +119,6 @@ setup() {
 # Check that the web container exists and is in the correct state.
 #
 @test "Check that the web container exists and is in the correct state." {
-  skip
   $DOCKER inspect appviperks_web_1 | grep "\"Status\": \"running\""
 }
 
@@ -139,6 +128,21 @@ setup() {
 @test "Check that the PROD API container does not have the xdebug extension enabled." {
   run $DOCKER exec appviperks_app_1 php-fpm -m
   [[ $output != *"xdebug"* ]]
+}
+
+#
+# Check that the web image has a link to the app.
+#
+@test "Check that the web image has a link to the api." {
+  $DOCKER exec appviperks_web_1 cat /etc/hosts | grep "app"
+}
+
+#
+# Check that the APP image has the correct links to redis and mysql.
+#
+@test "Check that the APP image has the correct links to redis and mysql." {
+  $DOCKER exec appviperks_app_1 cat /etc/hosts | grep "database" && \
+  $DOCKER exec appviperks_app_1 cat /etc/hosts | grep "redis"
 }
 
 #

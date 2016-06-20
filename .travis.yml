@@ -33,4 +33,4 @@ env:
   - TEST_GROUP=apidev
   - TEST_GROUP=apiprod
   - TEST_GROUP=appdev
-  - TEST_GROUP=appprod
+  - TEST_GROUP=appprod VIPERKS_SUPER_SECRET_PASSWORD=test

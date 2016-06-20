@@ -74,14 +74,6 @@ setup() {
 }
 
 #
-# Check that the APP image has the correct links to redis and mysql.
-#
-@test "Check that the APP image has the correct links to redis and mysql." {
-  $DOCKER run viperks/app:$VIPERKS_IMAGE_TAG cat /etc/hosts | grep "database" && \
-  $DOCKER run viperks/app:$VIPERKS_IMAGE_TAG cat /etc/hosts | grep "redis"
-}
-
-#
 # Check that the APP image has phpunit installed.
 #
 @test "Check that the APP image has phpunit installed." {
@@ -131,6 +123,21 @@ setup() {
 #
 @test "Check that the DEV APP container has the xdebug extension enabled." {
   $DOCKER exec appviperks_app_1 php-fpm -m | grep xdebug
+}
+
+#
+# Check that the web image has a link to the app.
+#
+@test "Check that the web image has a link to the api." {
+  $DOCKER exec appviperks_web_1 cat /etc/hosts | grep "app"
+}
+
+#
+# Check that the APP image has the correct links to redis and mysql.
+#
+@test "Check that the APP image has the correct links to redis and mysql." {
+  $DOCKER exec appviperks_app_1 cat /etc/hosts | grep "database" && \
+  $DOCKER exec appviperks_app_1 cat /etc/hosts | grep "redis"
 }
 
 #
