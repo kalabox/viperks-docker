@@ -3,6 +3,11 @@
 #
 FROM php:7-fpm
 
+# Composer version
+ENV COMPOSER_VERSION 1.1.2
+# Allow Composer to be run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
 # Install the PHP extensions we need plus composer
 RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
@@ -17,10 +22,10 @@ RUN apt-get update && apt-get install -y \
     pdo \
     pdo_mysql \
   && docker-php-ext-enable imagick \
-  && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-  && php -r "if (hash_file('SHA384', 'composer-setup.php') === '070854512ef404f16bac87071a6db9fd9721da1684cd4589b1196c3faf71b9a2682e2311b36a5079825e155ac7ce150d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-  && php composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer \
-  && php -r "unlink('composer-setup.php');" \
+  && curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
+  && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
+  && php -r "if (hash('SHA384', file_get_contents('/tmp/composer-setup.php')) !== trim(file_get_contents('/tmp/composer-setup.sig'))) { unlink('/tmp/composer-setup.php'); echo 'Invalid installer' . PHP_EOL; exit(1); }" \
+  && php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION} && rm -rf /tmp/composer-setup.php \
   && curl -fsSL -o /usr/local/bin/phpunit "https://phar.phpunit.de/phpunit.phar" \
   && chmod +x /usr/local/bin/phpunit \
   && apt-get -y clean \
