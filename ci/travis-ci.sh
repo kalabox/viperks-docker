@@ -37,12 +37,8 @@ before-script() {
   # Install kalabox
   sudo apt-get -y update
   sudo apt-get -y install iptables cgroup-bin bridge-utils curl
-  curl -fsSL -o /tmp/kalabox.deb "http://installer.kalabox.io/kalabox-latest.deb"
+  curl -fsSL -o /tmp/kalabox.deb "http://installer.kalabox.io/kalabox-latest-dev.deb"
   sudo dpkg -i /tmp/kalabox.deb
-
-  # Download latest cli
-  sudo curl -fsSL -o /usr/local/bin/kbox "http://cli.kalabox.io/kbox-linux-x64-latest-dev"
-  sudo chmod +x /usr/local/bin/kbox
 
 }
 
