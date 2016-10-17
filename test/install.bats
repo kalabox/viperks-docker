@@ -56,21 +56,6 @@ setup() {
   [ "$status" -eq 0 ]
 }
 
-# Check that core dns container exists
-@test "Check that core dns container exists and is running." {
-  $DOCKER inspect kalabox_dns_1 | grep "\"Running\": true"
-}
-
-# Check that core proxy container exists
-@test "Check that core proxy container exists and is running." {
-  $DOCKER inspect kalabox_proxy_1 | grep "\"Running\": true"
-}
-
-# Check that DNS has been set
-@test "Check that '10.13.37.100' exists in '/etc/resolver/kbox'" {
-  cat /etc/resolver/kbox | grep 10.13.37.100
-}
-
 # Check that '10.13.37.100' can be pinged
 @test "Check that '10.13.37.100' can be pinged" {
   ping -c 1 10.13.37.100
